@@ -1,0 +1,10 @@
+/target
+/dist
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+config.local.toml
+.idea/
