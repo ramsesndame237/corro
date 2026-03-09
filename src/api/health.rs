@@ -1,5 +1,5 @@
 use axum::{http::StatusCode, response::Json};
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 
 /// Liveness probe — returns 200 as long as the process is alive.
 pub async fn health() -> Json<Value> {
@@ -25,12 +25,7 @@ pub async fn ready() -> (StatusCode, Json<Value>) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use axum::{
-        body::to_bytes,
-        http::Request,
-        Router,
-        routing::get,
-    };
+    use axum::{Router, body::to_bytes, http::Request, routing::get};
     use tower::ServiceExt;
 
     fn test_router() -> Router {
@@ -43,7 +38,12 @@ mod tests {
     async fn health_returns_200() {
         let app = test_router();
         let response = app
-            .oneshot(Request::builder().uri("/health").body(axum::body::Body::empty()).unwrap())
+            .oneshot(
+                Request::builder()
+                    .uri("/health")
+                    .body(axum::body::Body::empty())
+                    .unwrap(),
+            )
             .await
             .unwrap();
         assert_eq!(response.status(), StatusCode::OK);
@@ -53,7 +53,12 @@ mod tests {
     async fn health_body_contains_status_ok() {
         let app = test_router();
         let response = app
-            .oneshot(Request::builder().uri("/health").body(axum::body::Body::empty()).unwrap())
+            .oneshot(
+                Request::builder()
+                    .uri("/health")
+                    .body(axum::body::Body::empty())
+                    .unwrap(),
+            )
             .await
             .unwrap();
         let body = to_bytes(response.into_body(), 1024).await.unwrap();
@@ -65,7 +70,12 @@ mod tests {
     async fn ready_returns_200() {
         let app = test_router();
         let response = app
-            .oneshot(Request::builder().uri("/ready").body(axum::body::Body::empty()).unwrap())
+            .oneshot(
+                Request::builder()
+                    .uri("/ready")
+                    .body(axum::body::Body::empty())
+                    .unwrap(),
+            )
             .await
             .unwrap();
         assert_eq!(response.status(), StatusCode::OK);

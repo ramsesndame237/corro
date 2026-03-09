@@ -91,11 +91,7 @@ pub trait StorageBackend: Send + Sync {
 
     async fn delete_object(&self, bucket: &str, key: &str) -> Result<(), CorroError>;
 
-    async fn head_object(
-        &self,
-        bucket: &str,
-        key: &str,
-    ) -> Result<ObjectMetadata, CorroError>;
+    async fn head_object(&self, bucket: &str, key: &str) -> Result<ObjectMetadata, CorroError>;
 
     async fn list_objects(
         &self,
@@ -143,11 +139,7 @@ impl StorageBackend for NullBackend {
     async fn delete_object(&self, _bucket: &str, _key: &str) -> Result<(), CorroError> {
         Err(CorroError::NotImplemented)
     }
-    async fn head_object(
-        &self,
-        _bucket: &str,
-        _key: &str,
-    ) -> Result<ObjectMetadata, CorroError> {
+    async fn head_object(&self, _bucket: &str, _key: &str) -> Result<ObjectMetadata, CorroError> {
         Err(CorroError::NotImplemented)
     }
     async fn list_objects(

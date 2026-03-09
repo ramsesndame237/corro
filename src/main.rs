@@ -7,7 +7,7 @@ use std::sync::Arc;
 
 use anyhow::Context;
 use tracing::info;
-use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
+use tracing_subscriber::{EnvFilter, fmt, layer::SubscriberExt, util::SubscriberInitExt};
 
 use settings::{LogFormat, Settings};
 use storage::NullBackend;
@@ -48,8 +48,8 @@ async fn main() -> anyhow::Result<()> {
 }
 
 fn init_tracing(cfg: &Settings) {
-    let filter = EnvFilter::try_from_default_env()
-        .unwrap_or_else(|_| EnvFilter::new(&cfg.log.level));
+    let filter =
+        EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new(&cfg.log.level));
 
     match cfg.log.format {
         LogFormat::Json => {

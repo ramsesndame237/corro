@@ -2,10 +2,10 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use axum::{
+    Router,
     extract::Request,
     middleware::{self, Next},
     response::{IntoResponse, Response},
-    Router,
     routing::get,
 };
 use tower_http::{catch_panic::CatchPanicLayer, trace::TraceLayer};
