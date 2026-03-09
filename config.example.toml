@@ -1,0 +1,21 @@
+# Corro — example configuration file
+# Copy to config.toml and adjust for your environment.
+# All values can also be set via environment variables:
+#   CORRO__SERVER__PORT=9000
+#   CORRO__STORAGE__PATH=/var/corro/data
+#   CORRO__LOG__LEVEL=info
+
+[server]
+host = "0.0.0.0"
+port = 9000
+request_timeout_secs = 30
+
+[storage]
+# Directory where buckets and objects are stored on disk.
+path = "./data"
+
+[log]
+# Log level: trace | debug | info | warn | error
+level = "info"
+# Log format: pretty (human-readable) | json (structured, for production)
+format = "pretty"
